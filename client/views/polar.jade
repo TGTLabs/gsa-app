@@ -5,4 +5,7 @@ html(lang='en')
 		title Survey!
 
 body
-	script(src="http://assets-polarb-com.a.ssl.fastly.net/assets/polar-embedded.js", async="true", data-publisher="nicolenetland", data-poll-id!=id)
+	if pollSet
+		script(src="http://assets-polarb-com.a.ssl.fastly.net/assets/polar-embedded.js", async="true", data-publisher="nicolenetland", data-poll-set!=id)
+	else
+		script(src="http://assets-polarb-com.a.ssl.fastly.net/assets/polar-embedded.js", async="true", data-publisher="nicolenetland", data-poll-id!=id)

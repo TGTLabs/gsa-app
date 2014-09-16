@@ -24,6 +24,10 @@ app.get('/w/:id', function (req, res) {
   res.render('wedgies', { id: req.params.id});
 });
 
+app.get('/p/set/:id', function (req, res) {
+  res.render('polar', { pollSet: true, id: req.params.id});
+});
+
 app.get('/p/:id', function (req, res) {
   res.render('polar', { id: req.params.id});
 });
