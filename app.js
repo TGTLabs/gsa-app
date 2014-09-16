@@ -24,6 +24,10 @@ app.get('/w/:id', function (req, res) {
   res.render('wedgies', { id: req.params.id});
 });
 
+app.get('/p/:id', function (req, res) {
+  res.render('polar', { id: req.params.id});
+});
+
 var port = process.env.PORT || 5000 || 9000;
 app.listen(port, function () {
   console.log("%s, version %s. Listening on %s", app.get('title'), thisPackage.version, port);
