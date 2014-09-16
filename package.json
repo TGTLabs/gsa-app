@@ -1,7 +1,10 @@
 {
   "name": "gsa-app",
-  "description" : "Guest Survey MVP Application",
+  "description": "Guest Survey MVP Application",
   "version": "0.0.1",
+  "engines": {
+    "node": "0.10.31"
+  },
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,6 +15,7 @@
     "compression": "^1.1.0",
     "dotenv": "^0.4.0",
     "express": "^4.9.0",
+    "jade": "^1.6.0",
     "morgan": "^1.3.1"
   }
 }
