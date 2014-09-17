@@ -5,7 +5,38 @@ html(lang='en')
 		title Survey!
 
 body
-	if pollSet
-		script(src="http://assets-polarb-com.a.ssl.fastly.net/assets/polar-embedded.js", async="true", data-publisher="nicolenetland", data-poll-set!=id)
-	else
-		script(src="http://assets-polarb-com.a.ssl.fastly.net/assets/polar-embedded.js", async="true", data-publisher="nicolenetland", data-poll-id!=id)
+	script(src="http://assets-polarb-com.a.ssl.fastly.net/assets/jquery-2.0.3.min.js")
+	script(src="http://assets-polarb-com.a.ssl.fastly.net/assets/polar-embedded-standalone.js")
+	script.
+		$(document).ready(function() {
+			var target = $('.polar-polls');
+
+			var polarOptions = {
+				pollSet: '!{id}',
+				publisher: 'nicolenetland',
+				callbacks: {
+					vote: function(data) {
+							// this fires both voting and unvoting
+							alert('voted ' + data.pollID + " " + data.choice);
+						},
+					loaded: function(data) {
+							// never got this to fire
+							console.log('data ', data.getUser());
+						},
+					navigate: function(data) {
+							// this fires when the question transitions; both with navigation and when answering a question
+							alert("navigate -> direction:" + data.direction + "; pollId:" + data.currentPollID + "; nextPollId:" + JSON.stringify(data))
+						},
+					lastPoll: function (data) {
+							// this only fires when the controls are engaged, not when answering questions
+							alert("lastPoll ->" + JSON.stringify(data))
+					}
+				}
+			};
+
+			//Instantiate new EmbeddedPollsApp showing a single Poll by ID
+		 	polar = new EmbeddedPollsApp(target, polarOptions);
+			polar.init();
+		});
+
+	.polar-polls
