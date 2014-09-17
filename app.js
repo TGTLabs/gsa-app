@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var dotenv = require('dotenv');
 dotenv.load();
@@ -30,6 +30,12 @@ app.get('/p/set/:id', function (req, res) {
 
 app.get('/p/:id', function (req, res) {
   res.render('polar', { id: req.params.id});
+});
+
+
+app.use(function(req, res, next){
+
+  res.render('404', { status: 404, url: req.url });
 });
 
 var port = process.env.PORT || 5000 || 9000;
