@@ -22,11 +22,7 @@ body
 							// this fires on both voting and unvoting actions
 							// data.pollID
 							// data.choice (1,2, etc)
-							if (lastVote === data.choice) {
-								console.log('i unvoted ', data);
-							} else {
-								console.log('i voted ', data);
-
+							if (lastVote !== data.choice) {
 								bootbox.alert("Your vote counts! Thanks");
 							}
 
@@ -35,30 +31,28 @@ body
 					loaded: function(data) {
 							// when the survey loads onto the page
 							// data.app = EmbeddedPollsApp
-							console.log('i loaded ', data.app.getUser());
-
-							// disable social linking
-							data.app.endShareEnabled = false;
-
 							lastVote = polar.userVotes[!{id}] ? polar.userVotes[!{id}].choice : -1;
+
+							data.app.voteActionManager.voteActionForVote = function(poll, vote) {
+								var action = VoteActionManager.prototype.voteActionForVote.call(this, poll, vote);
+								return (action.action == "share") ? null : action;
+							}
 						},
 					navigate: function(data) {
 							// (PollSet and if there are multiple polls to navigate) this fires when the question transitions; both with navigation and when answering a question
 							// data.direction ('next', 'previous')
 							// data.currentPollID
 							// data.nextPollID
-							console.log('i navigated ', data);
 						},
 					lastPoll: function () {
 							// (PollSet and if there are multiple polls to navigate)
 							// this only fires when the controls are engaged, not when answering questions
-							console.log('i lastPoll');
 					}
 				}
 			};
 
 			//Instantiate new EmbeddedPollsApp showing a single Poll by ID
-			polar = new EmbeddedPollsApp(target, polarOptions);
+			var polar = new EmbeddedPollsApp(target, polarOptions);
 
 			polar.init();
 		});
