@@ -8,6 +8,7 @@ var express = require('express');
 var morgan = require('morgan');
 var compress = require('compression');
 var path = require('path');
+var exphbs  = require('express-handlebars');
 
 var app = express();
 app.set('title', thisPackage.description);
@@ -16,17 +17,20 @@ var loggingFormat = 'remote=:remote-addr ":method :url HTTP/:http-version" statu
 app.use(morgan(loggingFormat));
 app.use(compress());
 
-app.engine('jade', require('jade').__express);
-app.set('views', __dirname + '/client/views');
-app.set('view engine', 'jade');
+//app.engine('jade', require('jade').__express);
+//app.set('view engine', 'jade');
+//app.set('views', __dirname + '/client/views');
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+//app.set('views', __dirname + '/client/templates');
 
-app.use(express.static(path.join(__dirname, 'polar')));
+app.use(express.static(path.join(__dirname, 'html5up-twenty')));
 
 app.get('/w/:id', function (req, res) {
   res.render('wedgies', { id: req.params.id});
 });
 
-app.get('/p/:id', function (req, res) {
+app.get('/:id', function (req, res) {
   res.render('polar', { id: req.params.id});
 });
 
