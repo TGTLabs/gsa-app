@@ -21,18 +21,6 @@ app.engine('jade', require('jade').__express);
 app.set('views', __dirname + '/client/views');
 app.set('view engine', 'jade');
 
-app.get('/', function (req, res) {
-  request('https://polarb.com/api/v4/users/nicolenetland/polls_created', function (error, response, body) {
-  var pollSummary = {};
-  if (!error && response.statusCode == 200) {
-    var bodyParsed = JSON.parse(body);
-    res.render('index', { res: bodyParsed});
-
-  }
-});
-
-});
-
 app.get('/w/:id', function (req, res) {
   res.render('wedgies', { id: req.params.id});
 });
