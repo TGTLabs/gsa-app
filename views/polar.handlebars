@@ -25,15 +25,15 @@
 			                // data.pollID
 			                // data.choice (1,2, etc)
 			                if (lastVote !== data.choice) {
-			                    bootbox.alert("Your vote counts! Thanks");
+			                    alert("Your vote counts! Thanks");
 			                }
 
-			                lastVote = polar.userVotes[206062] ? polar.userVotes[206062].choice : -1;
+			                lastVote = polar.userVotes[{{id}}] ? polar.userVotes[{{id}}].choice : -1;
 			            },
 			            loaded: function(data) {
 			                // when the survey loads onto the page
 			                // data.app = EmbeddedPollsApp
-			                lastVote = polar.userVotes[206062] ? polar.userVotes[206062].choice : -1;
+			                lastVote = polar.userVotes[{{id}}] ? polar.userVotes[{{id}}].choice : -1;
 
 			                data.app.voteActionManager.voteActionForVote = function(poll, vote) {
 			                    var action = VoteActionManager.prototype.voteActionForVote.call(this, poll, vote);
