@@ -10,8 +10,17 @@
     </nav>
 </header>
 
+
 <!-- Banner -->
 <section id="banner">
+
+
+<div id="lightbox"></div>
+<div id="lb-content">
+     <span id="lb-close">x</span>
+    <p>Thank you. Your vote counts!</p>        
+</div>
+
 		<script>
 				$(document).ready(function() {
 			    var target = $('.polar-polls');
@@ -25,7 +34,32 @@
 			                // data.pollID
 			                // data.choice (1,2, etc)
 			                if (lastVote !== data.choice) {
-			                    alert("Your vote counts! Thanks");
+			                    //alert("Your vote counts! Thanks");
+			                    var lightBox = $('#lightbox'),
+								lightBoxContent = $('#lb-content');
+
+									var positionLightbox = function() {
+									    var veiwWidth = $(window).width(),
+									        lbContentMargin = (veiwWidth / 2) - 148,
+									        lbContent = $('#lb-content');
+
+									    lbContent.css({
+									        'left' : lbContentMargin,
+									      //  'top' : $(window).scrollTop() + 50 + 'px'
+									    });
+									};
+
+
+									    lightBox.fadeIn(function() {
+									        lightBoxContent.show();                               
+									    });
+									    positionLightbox();
+
+
+									$('#lb-close').click(function() {
+									    lightBox.hide();
+									    lightBoxContent.hide();
+									});
 			                }
 
 			                lastVote = polar.userVotes[{{id}}] ? polar.userVotes[{{id}}].choice : -1;
