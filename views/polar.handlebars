@@ -1,1 +1,65 @@
-<h1>polar survey</h1>
+<link rel="stylesheet" type="text/css" href="css/surveyStyle.css">
+
+<!-- Header -->
+<header id="header" class="alt">
+    <h1 id="logo"><a href="index.html">Target <span>Guest Surveys</span></a></h1>
+    <nav id="nav">
+        <ul>
+            <li class="current"><a href="index.html">Legal Jargon</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Banner -->
+<section id="banner">
+		<script>
+				$(document).ready(function() {
+			    var target = $('.polar-polls');
+			    var lastVote;
+			    var polarOptions = {
+			        pollId: {{id}},
+			        publisher: 'nicolenetland',
+			        callbacks: {
+			            vote: function(data) {
+			                // this fires on both voting and unvoting actions
+			                // data.pollID
+			                // data.choice (1,2, etc)
+			                if (lastVote !== data.choice) {
+			                    bootbox.alert("Your vote counts! Thanks");
+			                }
+
+			                lastVote = polar.userVotes[206062] ? polar.userVotes[206062].choice : -1;
+			            },
+			            loaded: function(data) {
+			                // when the survey loads onto the page
+			                // data.app = EmbeddedPollsApp
+			                lastVote = polar.userVotes[206062] ? polar.userVotes[206062].choice : -1;
+
+			                data.app.voteActionManager.voteActionForVote = function(poll, vote) {
+			                    var action = VoteActionManager.prototype.voteActionForVote.call(this, poll, vote);
+			                    return (action.action == "share") ? null : action;
+			                }
+			            },
+			            navigate: function(data) {
+			                // (PollSet and if there are multiple polls to navigate) this fires when the question transitions; both with navigation and when answering a question
+			                // data.direction ('next', 'previous')
+			                // data.currentPollID
+			                // data.nextPollID
+			            },
+			            lastPoll: function () {
+			                // (PollSet and if there are multiple polls to navigate)
+			                // this only fires when the controls are engaged, not when answering questions
+			            }
+			        }
+			    };
+
+			    //Instantiate new EmbeddedPollsApp showing a single Poll by ID
+			    var polar = new EmbeddedPollsApp(target, polarOptions);
+
+			    polar.init();
+});
+</script>
+
+<div class="polar-polls"></div>
+
+</section>

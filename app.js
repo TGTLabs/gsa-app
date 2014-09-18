@@ -22,15 +22,18 @@ app.use(compress());
 //app.set('views', __dirname + '/client/views');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
-//app.set('views', __dirname + '/client/templates');
 
-app.use(express.static(path.join(__dirname, 'html5up-twenty')));
+app.use(express.static(path.join(__dirname, 'polar')));
 
 app.get('/w/:id', function (req, res) {
   res.render('wedgies', { id: req.params.id});
 });
 
 app.get('/:id', function (req, res) {
+  res.render('index', { id: req.params.id});
+});
+
+app.get('/polar/:id', function (req, res) {
   res.render('polar', { id: req.params.id});
 });
 
