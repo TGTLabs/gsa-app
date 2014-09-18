@@ -3,39 +3,63 @@ html(lang='en')
 	head
 		meta(charset='utf-8')
 		title Survey!
+		link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css", rel="stylesheet")
 
 body
-	script(src="http://assets-polarb-com.a.ssl.fastly.net/assets/jquery-2.0.3.min.js")
+	script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
+	script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
+	script(src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.2.0/bootbox.min.js")
 	script(src="http://assets-polarb-com.a.ssl.fastly.net/assets/polar-embedded-standalone.js")
 	script.
 		$(document).ready(function() {
 			var target = $('.polar-polls');
-
+			var lastVote
 			var polarOptions = {
 				pollId: '!{id}',
 				publisher: 'nicolenetland',
 				callbacks: {
 					vote: function(data) {
-							// this fires both voting and unvoting
-							alert('voted ' + data.pollID + " " + data.choice);
+							// this fires on both voting and unvoting actions
+							// data.pollID
+							// data.choice (1,2, etc)
+							if (lastVote === data.choice) {
+								console.log('i unvoted ', data);
+							} else {
+								console.log('i voted ', data);
+
+								bootbox.alert("Your vote counts! Thanks");
+							}
+
+							lastVote = polar.userVotes[!{id}] ? polar.userVotes[!{id}].choice : -1;
 						},
 					loaded: function(data) {
-							// never got this to fire
-							console.log('data ', data.getUser());
+							// when the survey loads onto the page
+							// data.app = EmbeddedPollsApp
+							console.log('i loaded ', data.app.getUser());
+
+							// disable social linking
+							data.app.endShareEnabled = false;
+
+							lastVote = polar.userVotes[!{id}] ? polar.userVotes[!{id}].choice : -1;
 						},
 					navigate: function(data) {
-							// this fires when the question transitions; both with navigation and when answering a question
-							alert("navigate -> direction:" + data.direction + "; pollId:" + data.currentPollID + "; nextPollId:" + JSON.stringify(data))
+							// (PollSet and if there are multiple polls to navigate) this fires when the question transitions; both with navigation and when answering a question
+							// data.direction ('next', 'previous')
+							// data.currentPollID
+							// data.nextPollID
+							console.log('i navigated ', data);
 						},
-					lastPoll: function (data) {
+					lastPoll: function () {
+							// (PollSet and if there are multiple polls to navigate)
 							// this only fires when the controls are engaged, not when answering questions
-							alert("lastPoll ->" + JSON.stringify(data))
+							console.log('i lastPoll');
 					}
 				}
 			};
 
 			//Instantiate new EmbeddedPollsApp showing a single Poll by ID
-		 	polar = new EmbeddedPollsApp(target, polarOptions);
+			polar = new EmbeddedPollsApp(target, polarOptions);
+
 			polar.init();
 		});
 
