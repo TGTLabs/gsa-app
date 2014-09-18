@@ -17,17 +17,10 @@ var loggingFormat = 'remote=:remote-addr ":method :url HTTP/:http-version" statu
 app.use(morgan(loggingFormat));
 app.use(compress());
 
-//app.engine('jade', require('jade').__express);
-//app.set('view engine', 'jade');
-//app.set('views', __dirname + '/client/views');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.use(express.static(path.join(__dirname, 'polar')));
-
-app.get('/w/:id', function (req, res) {
-  res.render('wedgies', { id: req.params.id});
-});
 
 app.get('/:id', function (req, res) {
   res.render('index', { id: req.params.id});
