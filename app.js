@@ -8,7 +8,6 @@ var express = require('express');
 var morgan = require('morgan');
 var compress = require('compression');
 var path = require('path');
-var request = require('request');
 
 var app = express();
 app.set('title', thisPackage.description);
@@ -21,6 +20,8 @@ app.engine('jade', require('jade').__express);
 app.set('views', __dirname + '/client/views');
 app.set('view engine', 'jade');
 
+app.use(express.static(path.join(__dirname, 'polar')));
+
 app.get('/w/:id', function (req, res) {
   res.render('wedgies', { id: req.params.id});
 });
@@ -29,9 +30,7 @@ app.get('/p/:id', function (req, res) {
   res.render('polar', { id: req.params.id});
 });
 
-
 app.use(function(req, res, next){
-
   res.render('404', { status: 404, url: req.url });
 });
 
