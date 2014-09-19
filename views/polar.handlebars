@@ -2,7 +2,7 @@
 
 <!-- Header -->
 <header id="header" class="alt">
-    <h1 id="logo"><a href="index.html">Target <span>Guest Surveys</span></a></h1>
+    <h1 id="logo"><a href="index.html">Tell <span>Target</span></a></h1>
     <nav id="nav">
         <ul>
             <li class="current"><a href="index.html">Legal Jargon</a></li>
@@ -27,7 +27,7 @@
 			    var lastVote;
 			    var polarOptions = {
 			        pollId: {{id}},
-			        publisher: 'nicolenetland',
+			        publisher: 'TargetUXR',
 			        callbacks: {
 			            vote: function(data) {
 			                // this fires on both voting and unvoting actions
@@ -51,7 +51,7 @@
 
 
 									    lightBox.fadeIn(function() {
-									        lightBoxContent.show();                               
+									        lightBoxContent.slideDown('fast');                               
 									    });
 									    positionLightbox();
 
