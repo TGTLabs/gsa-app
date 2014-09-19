@@ -8,6 +8,17 @@
 */
 
 
+
+/* iPad, tablets etc portrait ---- */
+@media only screen and (min-width: 768px) {
+	
+a.button.fit.scrolly {
+background-color: white;
+color: #7f0c14 !important;
+}
+}
+
+
 body > div.empollcta {
 display: none !important;
 }
@@ -954,6 +965,7 @@ color: #c90000;
 		text-align: center;
 		top: 0;
 		width: 100%;
+		display: none;
 	}
 
 		#topButton .toggle:before {
@@ -989,6 +1001,7 @@ color: #c90000;
 			position: absolute;
 			top: 0;
 			width: 80px;
+			display: none;
 		}
 
 	#sideButton .toggle {
@@ -997,6 +1010,7 @@ color: #c90000;
 		position: absolute;
 		text-align: center;
 		top: 0;
+		display: none;
 		width: 100%;
 	}
 
