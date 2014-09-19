@@ -7,6 +7,20 @@
 	display: none !important;
 	}
 
+.polar-polls {
+margin-left: auto !important;
+margin-right: auto !important;
+display: inline-block;
+}
+
+#centerPolls {
+	position: relative;
+	width: 100%;
+}
+
+#centerPolls > div > div > iframe {
+	display: grid !impo
+}
 
 
 	.highlight, .highlight.polloption {
