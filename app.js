@@ -8,8 +8,9 @@ var express = require('express');
 var morgan = require('morgan');
 var compress = require('compression');
 var path = require('path');
-var exphbs  = require('express-handlebars');
-var request = require('request');
+var exphbs = require('express-handlebars');
+var request = require('superagent');
+var _ = require('lodash');
 
 var app = express();
 app.set('title', thisPackage.description);
@@ -39,18 +40,44 @@ app.get('/polar/set/:id', function (req, res) {
   res.render('polar', { id: req.params.id, set: true});
 });
 
-app.use(function(req, res, next){
-  // res.render('404', { status: 404, url: req.url });
-  request('https://polarb.com/api/v4/users/TargetUXR/polls_created?limit=50', function (error, response, body) {
-  var pollSummary = {};
-  if (!error && response.statusCode == 200) {
-  var bodyParsed = JSON.parse(body);
-  console.log(bodyParsed);
-  res.render('404', { res: bodyParsed});
-  }
-  });
-});
+app.use(function (req, res, next) {
+  request
+    .get('https://polarb.com/api/v4/publishers/TargetUXR/poll_sets')
+    .accept('application/json')
+    .end(function(pollSets){
+      var sortedPollId = _.sortBy(
+        _.intersection(
+          _.flatten(
+            _.pluck(pollSets.body, 'poll_ids')
+          )
+        )
+      );
 
+      var pollsToRender = [];
+
+      request
+        .get('https://polarb.com/api/v4/users/TargetUXR/polls_created')
+        .query({ limit: 50 })
+        .end(function (polls) {
+          polls.body.forEach(function (poll) {
+            if (_.indexOf(sortedPollId, poll.pollID, true) < 0) {
+
+              // add the poll to be rendered
+              pollsToRender.push({ id: poll.pollID, caption: poll.caption});
+            }
+          });
+
+          res.render('404', { sets: pollSets.body, polls: pollsToRender});
+        });
+    });
+
+//    var pollSummary = {};
+//    if (!error && response.statusCode == 200) {
+//      var bodyParsed = JSON.parse(body);
+//      console.log(bodyParsed);
+//      res.render('404', { res: bodyParsed});
+//    }
+});
 
 
 var port = process.env.PORT || 5000 || 9000;
