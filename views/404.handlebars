@@ -1,1 +1,33 @@
-<h1>sorry, these are not the droids you are looking for</h1>
+<!-- Header -->
+<header id="header" class="alt">
+    <h1 id="logo"><a href="index.html">Tell <span>Target</span></a></h1>
+
+</header>
+
+<!-- Banner -->
+<section id="banner">
+
+    <div class="inner">
+        <div id="bullseye-logo"><img src="images/Bullseye_75_CMYK.svg"></div>
+        <header>
+            <!-- <span id="bullseye-logo"><img src="images/Bullseye_75_CMYK.svg"></span> --><h2>SORRY</h2>
+        </header>
+        <p>No poll here!
+            <br />
+            take a look at these other polls
+            <br />
+            {{#each res}}
+            {{#unless closed}}
+            <a href=http://survey.targetrad.com/polar/{{pollID}}>{{caption}}</a></br>
+            {{/unless}}
+            {{/each}}
+            </p>
+        <footer>
+            <ul class="buttons vertical">
+
+
+            </ul>
+        </footer>
+    </div>
+
+</section>
