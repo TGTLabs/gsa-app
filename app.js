@@ -36,7 +36,7 @@ app.get('/polar/:id', function (req, res) {
 });
 
 app.get('/polar/set/:id', function (req, res) {
-  res.render('polar-set', { id: req.params.id, set: true});
+  res.render('polar', { id: req.params.id, set: true});
 });
 
 app.use(function(req, res, next){

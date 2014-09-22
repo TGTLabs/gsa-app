@@ -1,12 +1,9 @@
 <link rel="stylesheet" type="text/css" href="css/surveyStyle.css">
 
-
 <div id="headerLogo"> <span>TELL </span>TARGET</div>
-
 
 <!-- Banner -->
 <section id="banner">
-
 
 <div id="lightbox"></div>
 <div id="lb-content">
@@ -16,56 +13,56 @@
 
 		<script>
 				$(document).ready(function() {
+
+					var disp = function () {
+	          var lightBox = $('#lightbox');
+	          var lightBoxContent = $('#lb-content');
+						var positionLightbox = function() {
+		          var viewWidth = $(window).width();
+	            var lbContentMargin = (viewWidth / 2) - 148;
+		          var lbContent = $('#lb-content');
+
+					    lbContent.css({
+					        'left' : lbContentMargin
+					      //  'top' : $(window).scrollTop() + 50 + 'px'
+					    });
+						};
+
+				    lightBox.fadeIn(function() {
+				        lightBoxContent.slideDown('fast');
+				    });
+				    positionLightbox();
+
+						$('#lb-close').click(function() {
+						    lightBox.hide();
+						    lightBoxContent.hide();
+						});
+					};
+
 			    var target = $('.polar-polls');
-			    var lastVote;
 			    var polarOptions = {
-              pollId: {{id}},
-			        publisher: 'nicolenetland',
+							{{#if set}}
+                  pollSet: {{id}},
+							{{else}}
+                  pollId: {{id}},
+							{{/if}}
+
+			        publisher: 'TargetUXR',
 			        callbacks: {
 			            vote: function(data) {
 			                // this fires on both voting and unvoting actions
 			                // data.pollID
 			                // data.choice (1,2, etc)
 			                if (lastVote !== data.choice) {
-			                    //alert("Your vote counts! Thanks");
-			                    var lightBox = $('#lightbox'),
-								lightBoxContent = $('#lb-content');
-
-									var positionLightbox = function() {
-									    var veiwWidth = $(window).width(),
-									        lbContentMargin = (veiwWidth / 2) - 148,
-									        lbContent = $('#lb-content');
-
-									    lbContent.css({
-									        'left' : lbContentMargin,
-									      //  'top' : $(window).scrollTop() + 50 + 'px'
-									    });
-									};
-
-
-									    lightBox.fadeIn(function() {
-									        lightBoxContent.slideDown('fast');                               
-									    });
-									    positionLightbox();
-
-
-									$('#lb-close').click(function() {
-									    lightBox.hide();
-									    lightBoxContent.hide();
-									});
+			                    alert("Your vote counts! Thanks");
 			                }
-
-			                lastVote = polar.userVotes[{{id}}] ? polar.userVotes[{{id}}].choice : -1;
 			            },
 			            loaded: function(data) {
 			                // when the survey loads onto the page
 			                // data.app = EmbeddedPollsApp
-			                lastVote = polar.userVotes[{{id}}] ? polar.userVotes[{{id}}].choice : -1;
-
-			                data.app.voteActionManager.voteActionForVote = function(poll, vote) {
-			                    var action = VoteActionManager.prototype.voteActionForVote.call(this, poll, vote);
-			                    return (action.action == "share") ? null : action;
-			                }
+                      data.app.voteActionManager.displayShare = function(poll, vote, voteAction) {
+                          disp();
+                      };
 			            },
 			            navigate: function(data) {
 			                // (PollSet and if there are multiple polls to navigate) this fires when the question transitions; both with navigation and when answering a question
