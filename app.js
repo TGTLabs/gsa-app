@@ -25,10 +25,25 @@ app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, 'polar')));
 
 app.get('/:id', function (req, res) {
-  res.render('index', { id: req.params.id});
+  request
+    .get('https://polarb.com/api/v4/users/targetuxr/poll_ids_created')
+    .accept('application/json')
+    .end(function(pollIds){
+      var sortedPollId = _.sortBy(pollIds.body.poll_ids);
+      console.log(req.params.id);
+      console.log(sortedPollId);
+      console.log(_.indexOf(sortedPollId, req.params.id));
+      if(_.indexOf(sortedPollId, req.params.id) >= 0){
+      res.render('index', { id: req.params.id});
+    } else{
+      res.redirect('/');
+    }
+    });
+
 });
 
 app.get('/set/:id', function (req, res) {
+  //validate set id is good
   res.render('index', { id: req.params.id, set: true});
 });
 
@@ -38,6 +53,37 @@ app.get('/polar/:id', function (req, res) {
 
 app.get('/polar/set/:id', function (req, res) {
   res.render('polar', { id: req.params.id, set: true});
+});
+
+app.get('/', function (req, res) {
+  request
+    .get('https://polarb.com/api/v4/publishers/TargetUXR/poll_sets')
+    .accept('application/json')
+    .end(function(pollSets){
+      var sortedPollId = _.sortBy(
+        _.intersection(
+          _.flatten(
+            _.pluck(pollSets.body, 'poll_ids')
+          )
+        )
+      );
+
+      var pollsToRender = [];
+
+      request
+        .get('https://polarb.com/api/v4/users/TargetUXR/polls_created')
+        .query({ limit: 50 })
+        .end(function (polls) {
+          polls.body.forEach(function (poll) {
+            if (_.indexOf(sortedPollId, poll.pollID, true) < 0) {
+
+              // add the poll to be rendered
+              pollsToRender.push({ id: poll.pollID, caption: poll.caption});
+            }
+          });
+          res.render('landing', { sets: pollSets.body, polls: pollsToRender});
+        });
+    });
 });
 
 app.use(function (req, res, next) {
@@ -66,17 +112,9 @@ app.use(function (req, res, next) {
               pollsToRender.push({ id: poll.pollID, caption: poll.caption});
             }
           });
-
           res.render('404', { sets: pollSets.body, polls: pollsToRender});
         });
     });
-
-//    var pollSummary = {};
-//    if (!error && response.statusCode == 200) {
-//      var bodyParsed = JSON.parse(body);
-//      console.log(bodyParsed);
-//      res.render('404', { res: bodyParsed});
-//    }
 });
 
 
