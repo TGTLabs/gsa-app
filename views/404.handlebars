@@ -1,6 +1,6 @@
 <!-- Header -->
 <header id="header" class="alt">
-    <h1 id="logo"><a href="index.html">Tell <span>Target</span></a></h1>
+    <h1 id="logo"><a href="/">Tell <span>Target</span></a></h1>
 
 </header>
 
@@ -16,9 +16,12 @@
             <br />
             take a look at these other polls
             <br />
-            {{#each res}}
+            {{#each sets}}
+            <a href=/polar/set/{{id}}>{{name}}</a></br>
+            {{/each}}
+            {{#each polls}}
             {{#unless closed}}
-            <a href=http://survey.targetrad.com/polar/{{pollID}}>{{caption}}</a></br>
+            <a href=/polar/{{id}}>{{caption}}</a></br>
             {{/unless}}
             {{/each}}
             </p>
