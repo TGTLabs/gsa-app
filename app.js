@@ -26,8 +26,16 @@ app.get('/:id', function (req, res) {
   res.render('index', { id: req.params.id});
 });
 
+app.get('/set/:id', function (req, res) {
+  res.render('index', { id: req.params.id, set: true});
+});
+
 app.get('/polar/:id', function (req, res) {
   res.render('polar', { id: req.params.id});
+});
+
+app.get('/polar/set/:id', function (req, res) {
+  res.render('polar-set', { id: req.params.id, set: true});
 });
 
 app.use(function(req, res, next){

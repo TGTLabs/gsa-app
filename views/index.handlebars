@@ -32,7 +32,13 @@
             in the future <a href="#">of our Brand</a>.</p>
         <footer>
             <ul class="buttons vertical">
+
+	            {{#if set}}
+                <li><a href="/polar/set/{{id}}" class="button fit scrolly" target="_self">Let's get started!</a></li>
+	            {{else}}
                 <li><a href="/polar/{{id}}" class="button fit scrolly" target="_self">Let's get started!</a></li>
+	            {{/if}}
+
             </ul>
         </footer>
     </div>
