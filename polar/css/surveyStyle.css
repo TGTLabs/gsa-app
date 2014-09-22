@@ -84,6 +84,21 @@ margin-top: 15px;
 }
 /* Basic */
 
+#headerLogo{
+		font-family: 'Lato', sans-serif;
+		font-size: 15pt;
+		font-weight: 300;
+		letter-spacing: 0.025em;
+		line-height: 1.75em;
+		color: #c90000;
+		padding: 1em;
+
+}
+
+#headerLogo > span {
+font-weight: 700;
+}
+
 	body, #skel-layers-wrapper {
 		background: white;
 	}
@@ -872,9 +887,12 @@ margin-top: 15px;
 		background-size: 25em, 25em, auto, cover;
 		color: white;
 		cursor: default;
-		padding: 6em 0;
+	/*	padding: 6em 0;*/
 		text-align: center;
 	}
+	#banner {
+margin-top: -5em;
+}
 
 		#banner .inner {
 			-moz-animation: reveal-banner 1s 0.25s ease-in-out;
