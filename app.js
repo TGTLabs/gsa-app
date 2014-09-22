@@ -41,7 +41,7 @@ app.get('/polar/set/:id', function (req, res) {
 
 app.use(function(req, res, next){
   // res.render('404', { status: 404, url: req.url });
-  request('https://polarb.com/api/v4/users/nicolenetland/polls_created?limit=50', function (error, response, body) {
+  request('https://polarb.com/api/v4/users/TargetUXR/polls_created?limit=50', function (error, response, body) {
   var pollSummary = {};
   if (!error && response.statusCode == 200) {
   var bodyParsed = JSON.parse(body);
