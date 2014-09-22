@@ -905,11 +905,11 @@ margin-top: -5em;
 			-o-animation-fill-mode: forwards;
 			-ms-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
-			background: rgba(52, 27, 43, 0.5);
+			background: #c90000;
 			color: white;
 			display: inline-block;
 			opacity: 0;
-			padding: 3em;
+			padding-top: 3em;
 			text-align: center;
 		}
 
