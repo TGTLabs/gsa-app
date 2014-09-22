@@ -4,7 +4,9 @@
 <header id="header" class="alt">
     <h1 id="logo"><a href="index.html">Tell <span>Target</span></a></h1>
     <nav id="nav">
-
+        <ul>
+            <li class="current"><a href="index.html">Legal Jargon</a></li>
+        </ul>
     </nav>
 </header>
 
@@ -21,10 +23,40 @@
 
 		<script>
 				$(document).ready(function() {
+
+					var disp = function () {
+	          var lightBox = $('#lightbox');
+	          var lightBoxContent = $('#lb-content');
+						var positionLightbox = function() {
+		          var viewWidth = $(window).width();
+	            var lbContentMargin = (viewWidth / 2) - 148;
+		          var lbContent = $('#lb-content');
+
+					    lbContent.css({
+					        'left' : lbContentMargin
+					      //  'top' : $(window).scrollTop() + 50 + 'px'
+					    });
+						};
+
+				    lightBox.fadeIn(function() {
+				        lightBoxContent.slideDown('fast');
+				    });
+				    positionLightbox();
+
+						$('#lb-close').click(function() {
+						    lightBox.hide();
+						    lightBoxContent.hide();
+						});
+					};
+
 			    var target = $('.polar-polls');
-			    var lastVote;
 			    var polarOptions = {
-              pollId: {{id}},
+							{{#if set}}
+                  pollSet: {{id}},
+							{{else}}
+                  pollId: {{id}},
+							{{/if}}
+
 			        publisher: 'nicolenetland',
 			        callbacks: {
 			            vote: function(data) {
@@ -32,45 +64,15 @@
 			                // data.pollID
 			                // data.choice (1,2, etc)
 			                if (lastVote !== data.choice) {
-			                    //alert("Your vote counts! Thanks");
-			                    var lightBox = $('#lightbox'),
-								lightBoxContent = $('#lb-content');
-
-									var positionLightbox = function() {
-									    var veiwWidth = $(window).width(),
-									        lbContentMargin = (veiwWidth / 2) - 148,
-									        lbContent = $('#lb-content');
-
-									    lbContent.css({
-									        'left' : lbContentMargin,
-									      //  'top' : $(window).scrollTop() + 50 + 'px'
-									    });
-									};
-
-
-									    lightBox.fadeIn(function() {
-									        lightBoxContent.slideDown('fast');                               
-									    });
-									    positionLightbox();
-
-
-									$('#lb-close').click(function() {
-									    lightBox.hide();
-									    lightBoxContent.hide();
-									});
+			                    alert("Your vote counts! Thanks");
 			                }
-
-			                lastVote = polar.userVotes[{{id}}] ? polar.userVotes[{{id}}].choice : -1;
 			            },
 			            loaded: function(data) {
 			                // when the survey loads onto the page
 			                // data.app = EmbeddedPollsApp
-			                lastVote = polar.userVotes[{{id}}] ? polar.userVotes[{{id}}].choice : -1;
-
-			                data.app.voteActionManager.voteActionForVote = function(poll, vote) {
-			                    var action = VoteActionManager.prototype.voteActionForVote.call(this, poll, vote);
-			                    return (action.action == "share") ? null : action;
-			                }
+                      data.app.voteActionManager.displayShare = function(poll, vote, voteAction) {
+                          disp();
+                      };
 			            },
 			            navigate: function(data) {
 			                // (PollSet and if there are multiple polls to navigate) this fires when the question transitions; both with navigation and when answering a question
@@ -86,7 +88,7 @@
 			    };
 
 			    //Instantiate new EmbeddedPollsApp showing a single Poll by ID
-			    var polar = new EmbeddedPollsApp(target, polarOptions);
+			    polar = new EmbeddedPollsApp(target, polarOptions);
 
 			    polar.init();
 });
