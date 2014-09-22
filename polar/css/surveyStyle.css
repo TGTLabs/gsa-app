@@ -891,7 +891,7 @@ font-weight: 700;
 		text-align: center;
 	}
 	#banner {
-margin-top: -5em;
+margin-top: -7em;
 }
 
 		#banner .inner {
@@ -905,7 +905,7 @@ margin-top: -5em;
 			-o-animation-fill-mode: forwards;
 			-ms-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
-			background: rgba(52, 27, 43, 0.5);
+			background: none;
 			color: white;
 			display: inline-block;
 			opacity: 0;
