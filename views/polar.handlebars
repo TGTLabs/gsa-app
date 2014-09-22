@@ -1,17 +1,34 @@
 <link rel="stylesheet" type="text/css" href="css/surveyStyle.css">
 
-<div id="headerLogo"><span>TELL </span>TARGET</div>
+
+<div id="headerLogo"> <span>TELL </span>TARGET</div>
+
 
 <!-- Banner -->
 <section id="banner">
 
-    <div id="lightbox"></div>
-    <div id="lb-content">
-        <span id="lb-close">x</span>
 
-        <p>Thank you. Your vote counts!</p>
+<div id="lightbox"></div>
+<div id="lb-content">
+     <span id="lb-close">x</span>
+<section id="banner">
+
+    <div class="inner">
+        <div id="bullseye-logo"><img src="images/Bullseye_75_CMYK.svg"></div>
+        <header>
+            <!-- <span id="bullseye-logo"><img src="images/Bullseye_75_CMYK.svg"></span> --><h2>Thank you</h2>
+        </header>
+        <p>For sharing your
+            <br />
+            voice in our brand
+            <br />
+        <footer>
+
+        </footer>
     </div>
 
+</section>  
+</div>
     <script>
         $(document).ready(function () {
 
@@ -28,7 +45,7 @@
                         //  'top' : $(window).scrollTop() + 50 + 'px'
                     });
                 };
-
+                $('#centerPolls').hide();
                 lightBox.fadeIn(function () {
                     lightBoxContent.slideDown('fast');
                 });
