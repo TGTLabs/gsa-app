@@ -121,6 +121,19 @@
 
 /* Banner */
 
+
+#banner .inner header h2 {
+border-bottom: solid 2px;
+border-top: solid 2px;
+font-size: 2.3em !important;
+font-weight: 900;
+letter-spacing: 0.2em;
+margin: 0;
+padding-left: 0.05em;
+position: relative;
+text-transform: uppercase;
+}
+
 	#banner {
 		background-size: 10em, 10em, auto, cover;
 		padding: 3em 0;

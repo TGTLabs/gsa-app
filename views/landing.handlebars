@@ -1,13 +1,32 @@
-{{> header}}
+<script>
+$(function() {
+  $('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
+      }
+    }
+  });
+});
+</script>
+
 
 <section id="banner">
     <div class="inner">
         <div id="bullseye-logo"><img src="images/Bullseye_75_CMYK.svg"></div>
         <header>
-            <!-- <span id="bullseye-logo"><img src="images/Bullseye_75_CMYK.svg"></span> --><h2>Welcome</h2>
+            <!-- <span id="bullseye-logo"><img src="images/Bullseye_75_CMYK.svg"></span> --><h2>Tell Target</h2>
         </header>
-        <p>Tell Target
+        <p>An oppurtunity to shape 
+        <br/> our products + services.
+ 		</p>
+ 		        <a href="#anchor" target="_self"><div id="currentQuestions">Current questions</div></a>
 					{{> polls }}
-        </p>
+
     </div>
 </section>

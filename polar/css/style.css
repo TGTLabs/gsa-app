@@ -504,6 +504,47 @@ display: none !important;
 			}
 
 /* Button */
+#currentQuestions {
+text-transform: uppercase;
+font-weight: 500;
+/* background-color: rgba(255, 255, 255, 0.33); */
+/* max-width: 70%; */
+/*margin-bottom: 10px;*/
+/* margin-left: 4em; */
+font-size: 1.2em;
+/* margin-right: 4em; */
+/*border-top: solid;*/
+padding-top: 20px;
+text-align: center;
+opacity: 0.5;
+color: white;
+}
+
+.Chevron{
+position: relative;
+/* display: block; */
+margin-top: 50px;
+/* height: 50px; */
+text-align: center;
+opacity: 0.5;
+}
+.Chevron:before,
+.Chevron:after{
+    position:absolute;
+    display:block;
+    content:"";
+    border:25px solid transparent;/*adjust size*/
+}
+/*Change four 'top' values below to rotate (top/right/bottom/left)*/
+.Chevron:before{
+    top:0;
+
+}
+.Chevron:after{
+    top:-10px;/*adjust thickness*/
+    border-top-color:#fff;/*Match background colour*/
+}
+
 
 	input[type="button"],
 	input[type="submit"],
@@ -524,16 +565,55 @@ display: none !important;
 		color: inherit;
 		cursor: pointer;
 		display: inline-block;
-		font-size: 0.8em;
-		font-weight: 900;
+		/* font-size: 0.8em; */
+		/* min-height: 50px; */
+		font-weight: 500;
 		letter-spacing: 2px;
 		min-width: 18em;
-		padding: 0 0.75em;
-		line-height: 3.75em;
+		padding: 1em 0.75em;
+		line-height: 1.6em;
 		text-align: center;
 		text-decoration: none;
 		text-transform: uppercase;
 	}
+
+	/*==================================================
+ * shadow Effect 2
+ * ===============================================*/
+.effect2
+{
+  position: relative;
+}
+.effect2:before, .effect2:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #633232;
+  -webkit-box-shadow: 0 15px 10px #633232;
+  -moz-box-shadow: 0 15px 10px #633232;
+  box-shadow: 0 15px 10px #633232;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.effect2:after
+{
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
 
 		input[type="button"]:hover,
 		input[type="submit"]:hover,
@@ -813,7 +893,7 @@ display: none !important;
 		background-size: 25em, 25em, auto, cover;
 		color: white;
 		cursor: default;
-		padding: 6em 0;
+		padding: 3em 0;
 		text-align: center;
 	}
 
@@ -859,6 +939,7 @@ margin: 0 0 1em 0;
 			#banner .inner p {
 				letter-spacing: 0.1em;
 				margin: 0;
+				margin-bottom: 1em;
 				text-transform: uppercase;
 			}
 
