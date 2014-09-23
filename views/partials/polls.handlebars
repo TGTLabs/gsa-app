@@ -1,0 +1,11 @@
+<br/>
+take a look at these other polls
+<br/>
+
+{{#each polls}}
+	{{#unless closed}}
+		{{#unless inset}}
+        <a href=/polar/{{id}}>{{name}}</a></br>
+		{{/unless}}
+	{{/unless}}
+{{/each}}
