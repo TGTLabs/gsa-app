@@ -16,14 +16,13 @@
             <br />
             take a look at these other polls
             <br />
-            {{#each sets}}
-            <a href=/polar/set/{{id}}>{{name}}</a></br>
-            {{/each}}
-            {{#each polls}}
-            {{#unless closed}}
-            <a href=/polar/{{id}}>{{caption}}</a></br>
-            {{/unless}}
-            {{/each}}
+	        {{#each polls}}
+		        {{#unless closed}}
+			        {{#unless inset}}
+                  <a href=/polar/{{id}}>{{name}}</a></br>
+			        {{/unless}}
+		        {{/unless}}
+	        {{/each}}
             </p>
         <footer>
             <ul class="buttons vertical">

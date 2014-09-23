@@ -11,6 +11,7 @@ var path = require('path');
 var exphbs = require('express-handlebars');
 var request = require('superagent');
 var _ = require('lodash');
+var pollManager = require('./lib/pollManager');
 
 var app = express();
 app.set('title', thisPackage.description);
@@ -27,137 +28,58 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static(path.join(__dirname, 'polar')));
 
-app.get('/', function(req, res) {
-  request
-    .get('https://polarb.com/api/v4/publishers/TargetUXR/poll_sets')
-    .accept('application/json')
-    .end(function(pollSets) {
-      var sortedPollId = _.sortBy(
-        _.intersection(
-          _.flatten(
-            _.pluck(pollSets.body, 'poll_ids')
-          )
-        )
-      );
-
-      var pollsToRender = [];
-
-      request
-        .get('https://polarb.com/api/v4/users/TargetUXR/polls_created')
-        .query({
-          limit: 50
-        })
-        .end(function(polls) {
-          polls.body.forEach(function(poll) {
-            if (_.indexOf(sortedPollId, poll.pollID, true) < 0) {
-
-              // add the poll to be rendered
-              pollsToRender.push({
-                id: poll.pollID,
-                caption: poll.caption
-              });
-            }
-          });
-          res.render('landing', {
-            sets: pollSets.body,
-            polls: pollsToRender
-          });
-        });
+app.get('/', function (req, res) {
+  pollManager.getting()
+    .then(function (polarData) {
+      res.render('landing', {
+        polls: polarData
+      });
     });
 });
 
-app.get('/:id', function(req, res) {
-  request
-    .get('https://polarb.com/api/v4/polls/' + req.params.id)
-    .accept('application/json')
-    .end(function(pollData) {
-      if (pollData.body.hasOwnProperty('creator') && pollData.body.creator.hasOwnProperty(
-        'username') && pollData.body.creator.username == "TargetUXR") {
-        res.render('index', {
-          id: req.params.id
-        });
-      } else {
-        res.redirect('/');
-      }
+app.get('/404', function (req, res) {
+  pollManager.getting()
+    .then(function (polarData) {
+      res.render('404', {
+        polls: polarData
+      });
     });
-
 });
 
-app.get('/set/:id', function(req, res) {
-  //validate set id is good
-  request
-    .get('https://polarb.com/api/v4/publishers/TargetUXR/poll_sets')
-    .accept('application/json')
-    .end(function(pollSets) {
-      if (_.indexOf(_.flatten(_.pluck(pollSets.body, 'id')), parseInt(req.params.id)) >= 0) {
+app.get('/:id', function (req, res) {
+  pollManager.getting()
+    .then(function (polarData) {
+      if (polarData[req.params.id]) {
         res.render('index', {
           id: req.params.id,
-          set: true
+          set: polarData[req.params.id].set
         });
       } else {
-        res.redirect('/');
+        res.redirect('/404');
       }
     });
-
 });
 
-app.get('/polar/:id', function(req, res) {
-  res.render('polar', {
-    id: req.params.id
-  });
-});
-
-app.get('/polar/set/:id', function(req, res) {
-  res.render('polar', {
-    id: req.params.id,
-    set: true
-  });
-});
-
-
-
-app.use(function(req, res, next) {
-  request
-    .get('https://polarb.com/api/v4/publishers/TargetUXR/poll_sets')
-    .accept('application/json')
-    .end(function(pollSets) {
-      var sortedPollId = _.sortBy(
-        _.intersection(
-          _.flatten(
-            _.pluck(pollSets.body, 'poll_ids')
-          )
-        )
-      );
-
-      var pollsToRender = [];
-
-      request
-        .get('https://polarb.com/api/v4/users/TargetUXR/polls_created')
-        .query({
-          limit: 50
-        })
-        .end(function(polls) {
-          polls.body.forEach(function(poll) {
-            if (_.indexOf(sortedPollId, poll.pollID, true) < 0) {
-
-              // add the poll to be rendered
-              pollsToRender.push({
-                id: poll.pollID,
-                caption: poll.caption
-              });
-            }
-          });
-          res.render('404', {
-            sets: pollSets.body,
-            polls: pollsToRender
-          });
+app.get('/polar/:id', function (req, res) {
+  pollManager.getting()
+    .then(function (polarData) {
+      if (polarData[req.params.id]) {
+        res.render('polar', {
+          id: req.params.id,
+          set: polarData[req.params.id].set
         });
+      } else {
+        res.redirect('/404');
+      }
     });
 });
 
+app.use(function (req, res) {
+  res.redirect('/404');
+});
 
 var port = process.env.PORT || 5000 || 9000;
-app.listen(port, function() {
+app.listen(port, function () {
   console.log("%s, version %s. Listening on %s", app.get('title'),
     thisPackage.version, port);
 });
