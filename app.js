@@ -85,10 +85,20 @@ app.get('/:id', function(req, res) {
 
 app.get('/set/:id', function(req, res) {
   //validate set id is good
-  res.render('index', {
-    id: req.params.id,
-    set: true
-  });
+  request
+    .get('https://polarb.com/api/v4/publishers/TargetUXR/poll_sets')
+    .accept('application/json')
+    .end(function(pollSets) {
+      if (_.indexOf(_.flatten(_.pluck(pollSets.body, 'id')), parseInt(req.params.id)) >= 0) {
+        res.render('index', {
+          id: req.params.id,
+          set: true
+        });
+      } else {
+        res.redirect('/');
+      }
+    });
+
 });
 
 app.get('/polar/:id', function(req, res) {
