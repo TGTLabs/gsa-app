@@ -27,6 +27,14 @@ body > div.empollcta {
 	width: 25%;
 	margin: 1em auto 1.5em auto;
 }
+.navbar-social a {
+	border-bottom: none;
+
+}
+.navbar-social img {
+	margin: 1em .5em;
+	width: 44px;
+}
 
 /* Basic */
 
