@@ -12,15 +12,20 @@
 /* iPad, tablets etc portrait ---- */
 @media only screen and (min-width: 768px) {
 	
-a.button.fit.scrolly {
-background-color: white;
-color: #7f0c14 !important;
-}
+	a.button.fit.scrolly {
+		background-color: white;
+		color: #7f0c14 !important;
+	}
 }
 
 
 body > div.empollcta {
-display: none !important;
+	display: none !important;
+}
+
+#bullseye-logo {
+	width: 25%;
+	margin: 1em auto 1.5em auto;
 }
 
 /* Basic */
