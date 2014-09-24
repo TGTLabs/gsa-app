@@ -50,21 +50,17 @@ margin: 1em !important;
     opacity: 1;
     text-align: center;
     display: none;
-}  
-#lb-content {
-color: #222;
-height: 150px;
-/* width: 260px; */
-/* border: 16px solid #222; */
-background-color: #fff;
-/* margin-left: 13px; */
-text-align: center;
-z-index: 100;
-/* padding-top: 10px; */
-/* border-radius: 4px; */
-display: none;
-font-family: Lato, Helvetica, sans-serif;
 }
+
+#lb-content {
+    color: #222;
+    background-color: #fff;
+    text-align: center;
+    z-index: 100;
+    display: none;
+    font-family: Lato, Helvetica, sans-serif;
+    }
+
 #lb-close {
 display: none;
 /* height: 22px; */
