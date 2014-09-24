@@ -1,36 +1,66 @@
 <link rel="stylesheet" type="text/css" href="css/surveyStyle.css">
 
 
-<div id="headerLogo"> <span>TELL </span>TARGET</div>
+<div id="headerLogo"><span>TELL </span>TARGET</div>
 
 
 <!-- Banner -->
 <section id="banner">
 
 
-<div id="lightbox"></div>
-<div id="lb-content">
-     
-<section id="banner">
+    <div id="lightbox"></div>
+    <div id="lb-content">
 
-    <div class="inner">
-        <div id="bullseye-logo"><img src="images/Bullseye_75_CMYK.svg"></div>
-        <header>
-            <h2>Thank you</h2>
-        </header>
-        <p>For sharing your voice
-            <br />
+        <section id="banner">
 
-        <div class="navbar-social">
-            <a alt="Share via Facebook" title="Share via Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://polls.targetrad.com" target="_blank"><img src="../images/ICN_faceSpace@2x.png"/></a>
-            <a alt="Share via Twitter" title="Share via Twitter" href="https://twitter.com/intent/tweet?text=Check it out! Tell Target: an opportunity to shape Target's products & services by taking quick polls! http://polls.targetrad.com" target="_blank"><img src="../images/ICN_tweeter@2x.png"/></a>
-            <a alt="Share via Email" title="Share via Email" href="mailto://?subject=Back%20to%20School%20List%20Assist&body=Check it out! Tell Target: an opportunity to shape Target's products & services by taking quick polls! http://polls.targetrad.com"><img src="../images/ICN_tehEmails@2x.png"/></a>
-        </div>
+            <div class="inner">
+                <div id="bullseye-logo"><img src="images/Bullseye_75_CMYK.svg"></div>
+                <header>
+                    <h2>Thank you</h2>
+                </header>
+                <p>For sharing your voice
+                    <br/>
 
+                    <script type="text/javascript">
+
+                        function add_bookmark(url, page_title) {
+                            if (window.sidebar) {
+                                window.sidebar.addPanel(page_title, url, '');
+                            } else if (window.opera) {
+                                var a = document.createElement('A');
+                                a.rel = 'sidebar';
+                                a.target = '_search';
+                                a.title = page_title;
+                                a.href = url;
+                                a.click();
+                            } else if (window.external) {
+                                window.external.AddFavorite(url, page_title);
+                            } else {
+                                alert("Your web browser appears to not support adding a bookmark via Javascript.Please manually add one via your browser ' s bookmark menu.");
+                            }
+                        }
+                    </script>
+
+                <div class="navbar-social">
+                    <a title="Share via Facebook"
+                       href="https://www.facebook.com/sharer/sharer.php?u=Check%20it%20out!%20Tell%20Target%3A%20an%20opportunity%20to%20shape%20Target%27s%20products%20%26%20services%20by%20taking%20quick%20polls!%20http%3A%2F%2Fpolls.targetrad.com"
+                       target="_blank">
+		                    <img src="../images/ICN_faceSpace@2x.png"/>
+                    </a>
+                    <a title="Share via Twitter"
+                       href="https://twitter.com/intent/tweet?text=Check%20it%20out!%20Tell%20Target%3A%20an%20opportunity%20to%20shape%20Target%27s%20products%20%26%20services%20by%20taking%20quick%20polls!%20http%3A%2F%2Fpolls.targetrad.com"
+                       target="_blank">
+		                    <img src="../images/ICN_tweeter@2x.png"/>
+                    </a>
+                    <a title="Share via Email"
+                       href="mailto://?subject=Tell%20Target&body=Check%20it%20out!%20Tell%20Target%3A%20an%20opportunity%20to%20shape%20Target%27s%20products%20%26%20services%20by%20taking%20quick%20polls!%20http%3A%2F%2Fpolls.targetrad.com">
+		                    <img src="../images/ICN_theEmails@2x.png"/>
+                    </a>
+                </div>
+            </div>
+
+        </section>
     </div>
-
-</section>  
-</div>
     <script>
         $(document).ready(function () {
 
