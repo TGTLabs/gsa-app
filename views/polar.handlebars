@@ -21,26 +21,6 @@
                 <p>For sharing your voice
                     <br/>
 
-                    <script type="text/javascript">
-
-                        function add_bookmark(url, page_title) {
-                            if (window.sidebar) {
-                                window.sidebar.addPanel(page_title, url, '');
-                            } else if (window.opera) {
-                                var a = document.createElement('A');
-                                a.rel = 'sidebar';
-                                a.target = '_search';
-                                a.title = page_title;
-                                a.href = url;
-                                a.click();
-                            } else if (window.external) {
-                                window.external.AddFavorite(url, page_title);
-                            } else {
-                                alert("Your web browser appears to not support adding a bookmark via Javascript.Please manually add one via your browser ' s bookmark menu.");
-                            }
-                        }
-                    </script>
-
                 <div class="navbar-social">
                     <a title="Share via Facebook"
                        href="https://www.facebook.com/sharer/sharer.php?u=http://polls.targetrad.com"
