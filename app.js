@@ -3,6 +3,13 @@
 var dotenv = require('dotenv');
 dotenv.load();
 
+if(process.env.NODETIME_ACCOUNT_KEY) {
+  require('nodetime').profile({
+    accountKey: process.env.NODETIME_ACCOUNT_KEY,
+    appName: 'tgtrad-gsa-app' // optional
+  });
+}
+
 var thisPackage = require('./package');
 var express = require('express');
 var morgan = require('morgan');
