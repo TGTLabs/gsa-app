@@ -101,6 +101,12 @@ body > div.empollcta {
 			border: 0;
 		}
 
+	h1 {
+		font-size: 1.5em;
+		letter-spacing: 0.1em;
+	}
+
+
 	h2 {
 		font-size: 1.5em;
 		letter-spacing: 0.1em;
