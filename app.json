@@ -1,10 +1,11 @@
 {
   "name": "Target Tell",
   "description": "A Target application that wraps Polar",
-  "website": "polls.targetrad.com",
+  "website": "http://polls.targetrad.com",
   "success_url": "/",
-  "addons": ["papertrail"],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "addons": [
+    "papertrail:choklad",
+    "nodetime:free"
+  ],
+  "env": {}
 }
