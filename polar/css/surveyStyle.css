@@ -100,6 +100,20 @@ margin-top: 15px;
 font-weight: 700;
 }
 
+
+
+.back-to-homepage {
+height: 2em;
+background-color: white;
+/* font-family: fantasy; */
+/* color: #c90000; */
+}
+
+#lb-content > div > div.back-to-homepage > a {
+color: #c90000;
+text-decoration: none;
+border: none;
+}
 	body, #skel-layers-wrapper {
 		background: white;
 	}
